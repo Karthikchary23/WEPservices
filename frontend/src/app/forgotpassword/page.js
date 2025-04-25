@@ -17,7 +17,7 @@ const ForgotPassword = () => {
     if (!email) return alert("Please enter your email");
 
     try {
-      await axios.post("http://localhost:4000/otp/forgot-password/send-otp", { email })
+      await axios.post("https://wepservicesonline.onrender.com/otp/forgot-password/send-otp", { email })
       .then((response) => {
         if (response.status === 200) {
             alert("OTP sent to your email!");
@@ -57,7 +57,7 @@ const ForgotPassword = () => {
     if (newPassword !== confirmPassword) return alert("Passwords do not match");
 
     try {
-      await axios.post("http://localhost:4000/otp/password/reset-password", {
+      await axios.post("https://wepservicesonline.onrender.com/otp/password/reset-password", {
         email,
         newPassword,
       }).then((response) => {

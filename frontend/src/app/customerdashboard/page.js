@@ -9,7 +9,7 @@ import dynamic from "next/dynamic";
 import { set } from "react-hook-form";
 const MapComponent = dynamic(() => import("../../Components/Maps.js"), { ssr: false })
 
-const socket = io("http://localhost:4000", { transports: ["websocket"] });
+const socket = io("https://wepservicesonline.onrender.com", { transports: ["websocket"] });
 
 const CustomerDashboard = () => {
   const [location, setLocation] = useState({ lat: null, lng: null });
@@ -38,7 +38,7 @@ const CustomerDashboard = () => {
     const verifyToken = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:4000/customertoken/customertokenverify",
+          "https://wepservicesonline.onrender.com/customertoken/customertokenverify",
           {
             token: ct,
           }
@@ -68,7 +68,7 @@ const CustomerDashboard = () => {
 
   useEffect(() => {
     const fetchingAcceptedRequests = async (providerEmail, customerEmail) => {
-      const res = await axios.get("http://localhost:4000/request/acceptedrequests", {
+      const res = await axios.get("https://wepservicesonline.onrender.com/request/acceptedrequests", {
         params: {
           providerEmail: providerEmail,
           customerEmail: customerEmail,
@@ -155,7 +155,7 @@ const CustomerDashboard = () => {
 
       try {
         await axios.post(
-          "http://localhost:4000/customerlocation/update-location",
+          "https://wepservicesonline.onrender.com/customerlocation/update-location",
           {
             latitude,
             longitude,
@@ -210,7 +210,7 @@ const CustomerDashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:4000/request/request-service",
+        "https://wepservicesonline.onrender.com/request/request-service",
         {
           name,
           email: email1,
@@ -246,7 +246,7 @@ const CustomerDashboard = () => {
     // Send a request to the backend to delete the request
     setserviceProviderLocation({ lat: null, lng: null });
     axios
-      .post("http://localhost:4000/request/deleterequest", {
+      .post("https://wepservicesonline.onrender.com/request/deleterequest", {
         customermail: email1,
         serviceprovideremail: serviceProviderEmail,
       })
@@ -268,7 +268,7 @@ const CustomerDashboard = () => {
   
           // Update local storage
           localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
-          await axios.post("http://localhost:4000/customer/servicerejectedcount",{customerEmail: email1})
+          await axios.post("https://wepservicesonline.onrender.com/customer/servicerejectedcount",{customerEmail: email1})
           .then((response)=>{
             if(response.status===200){
                 console.log(response);
@@ -291,7 +291,7 @@ const CustomerDashboard = () => {
 
   const handleVerify = async (provider) => {
     await axios
-      .post("http://localhost:4000/otp/otpverification", {
+      .post("https://wepservicesonline.onrender.com/otp/otpverification", {
         customerEmail: email1,
         serviceProviderEmail: provider.email,
         otp: otp,
@@ -303,7 +303,7 @@ const CustomerDashboard = () => {
             serviceProviderEmail: provider.email,});
           setOtp("")
 
-          await axios.post("http://localhost:4000/customer/servicerecievedcount", { customerEmail: email1 })
+          await axios.post("https://wepservicesonline.onrender.com/customer/servicerecievedcount", { customerEmail: email1 })
             .then((response) => {
               if (response.status === 200) {
                 console.log(response);

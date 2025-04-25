@@ -11,7 +11,7 @@ const MapComponent = dynamic(() => import("../../Components/Maps.js"), {
   ssr: false,
 });
 
-const socket = io("http://localhost:4000", {
+const socket = io("https://wepservicesonline.onrender.com", {
   transports: ["websocket"],
 });
 
@@ -42,7 +42,7 @@ const ServiceProviderDashboard = () => {
     const verifyToken = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:4000/serviceprovidertoken/serviceprovidertokenverify",
+          "https://wepservicesonline.onrender.com/serviceprovidertoken/serviceprovidertokenverify",
           { token: spt }
         );
 
@@ -115,7 +115,7 @@ const ServiceProviderDashboard = () => {
       if (!email1) return;
       try {
         await axios.post(
-          "http://localhost:4000/serviceproviderlocation/update-location",
+          "https://wepservicesonline.onrender.com/serviceproviderlocation/update-location",
           {
             latitude,
             longitude,
@@ -227,14 +227,14 @@ const ServiceProviderDashboard = () => {
 
         console.log("Data Object:", data);
         axios
-          .post("http://localhost:4000/available/isavailable", {
+          .post("https://wepservicesonline.onrender.com/available/isavailable", {
             email: email1,
           })
           .then((response) => {
             // alert(response.data.message);
             axios
               .post(
-                "http://localhost:4000/request/requestupdate",
+                "https://wepservicesonline.onrender.com/request/requestupdate",
                 data
               )
               .then((response) => {
@@ -314,7 +314,7 @@ const ServiceProviderDashboard = () => {
     alert("Request has been canceled!");
     localStorage.setItem("available", "true");
     axios
-      .post("https://wepbackend23.onrender.com/request/deleterequest", {
+      .post("https://wepservicesonline.onrender.com/request/deleterequest", {
         customermail: requestId,
         serviceprovideremail: email1,
       })
@@ -342,7 +342,7 @@ const ServiceProviderDashboard = () => {
           );
           await axios
             .post(
-              "https://wepbackend23.onrender.com/serviceprovider/servicesrejectedcount",
+              "https://wepservicesonline.onrender.com/serviceprovider/servicesrejectedcount",
               { providerEmail: email1 }
             )
             .then((response) => {
@@ -391,7 +391,7 @@ const ServiceProviderDashboard = () => {
     console.log("customerMail",customerMail);
     console.log("serviceprovideremail", email1);
     await axios.post(
-      "http://localhost:4000/request/deleterequest",{
+      "https://wepservicesonline.onrender.com/request/deleterequest",{
         customermail: customerMail,
         serviceprovideremail: email1,
       }).then(async (response) => {
@@ -400,7 +400,7 @@ const ServiceProviderDashboard = () => {
 
       await axios
       .post(
-        "http://localhost:4000/serviceprovider/servicesprovidedcount",
+        "https://wepservicesonline.onrender.com/serviceprovider/servicesprovidedcount",
         { providerEmail: email1 }
       )
       .then((response) => {
