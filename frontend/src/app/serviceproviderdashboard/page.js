@@ -485,6 +485,7 @@ const ServiceProviderDashboard = () => {
                 >
                   <p><strong>Customer name:</strong> {req.customerName}</p>
                   <p><strong>Customer ID:</strong> {req.customerId}</p>
+                  <p><strong>Mobile:</strong> {req.Mobile}</p>
                   <p><strong>Service Type:</strong> {req.serviceType}</p>
                   <p><strong>Location:</strong> {req.Fulladdress}</p>
 
@@ -495,6 +496,7 @@ const ServiceProviderDashboard = () => {
                           handleAccept(
                             req.customerId,
                             req.customerLocation,
+                            
                             req.serviceType,
                             req.customerName,
                             req.Fulladdress
