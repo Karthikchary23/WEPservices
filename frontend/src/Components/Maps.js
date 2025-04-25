@@ -11,7 +11,14 @@ const TileLayer = dynamic(() => import("react-leaflet").then((mod) => mod.TileLa
 const Marker = dynamic(() => import("react-leaflet").then((mod) => mod.Marker), { ssr: false });
 const Popup = dynamic(() => import("react-leaflet").then((mod) => mod.Popup), { ssr: false });
 
-const defaultCenter = [17.385044, 78.486671];
+const defaultCenter = (customerLocation, providerLocation) => {
+  if (customerLocation?.lat && customerLocation?.lng) {
+    return [customerLocation.lat, customerLocation.lng];
+  } else if (providerLocation?.lat && providerLocation?.lng) {
+    return [providerLocation.lat, providerLocation.lng];
+  }
+  return [17.385044, 78.486671]; // Fallback to original default location
+};
 
 const Routing = ({ L, customerLocation, providerLocation, setDistance }) => {
   const map = useMap();
@@ -72,11 +79,11 @@ const Map = ({ providerLocation, customerLocation }) => {
           ]);
         },
         () => {
-          setUserLocation(defaultCenter);
+          setUserLocation(defaultCenter(customerLocation, providerLocation));
         }
       );
     }
-  }, []);
+  }, [customerLocation, providerLocation]);
 
   if (!L || !userLocation) return <div style={{ textAlign: "center", padding: "20px"  }}><p className="text-white text-lg font-bold mb-2">Loading map...</p>
     </div>;
