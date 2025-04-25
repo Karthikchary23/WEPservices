@@ -6,7 +6,6 @@ import axios from "axios";
 import { io } from "socket.io-client"; // Import socket.io client
 // import Map from "../../Components/Maps";
 import dynamic from "next/dynamic";
-import { set } from "react-hook-form";
 const MapComponent = dynamic(() => import("../../Components/Maps.js"), {
   ssr: false,
 });
@@ -57,9 +56,13 @@ const ServiceProviderDashboard = () => {
           setServicesRejectedCount(
             response.data.serviceprovider.servicesRejectedCount
           );
-          // alert(
-          //   `Welcome, ${response.data.serviceprovider.firstName || "Provider"}`
-          // );
+          const availabe = localStorage.getItem("available");
+          if (availabe === "true") {
+            alert(
+              `Welcome, ${response.data.serviceprovider.firstName || "Provider"}`
+            );
+          }
+          
 
           const providerData = {
             email: response.data.serviceprovider.email,
