@@ -51,7 +51,7 @@ const CustomerDashboard = () => {
           setCustomerAddress(response.data.customer.Fulladdress);
           setServicesRecievedCount(response.data.customer.servicesRecievedCount);
           setServicesRejectedCount(response.data.customer.servicesRejectedCount);
-          alert(`Welcome, ${response.data.customer.name}`);
+          // alert(`Welcome, ${response.data.customer.name}`);
           //console.log("Socket Connected:", socket.connected);
           socket.emit("registerCustomer", response.data.customer.email);
 
@@ -399,9 +399,15 @@ const CustomerDashboard = () => {
               <div
                 key={service.type}
                 onClick={() => handleRequestService(service.type)}
-                className={`bg-${service.color}-500 hover:bg-${service.color}-700
-                text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg
-                py-3 rounded-lg text-center cursor-pointer transition w-full`}
+                className={`${
+                  service.color === "blue"
+                    ? "bg-blue-500 hover:bg-blue-700"
+                    : service.color === "green"
+                    ? "bg-green-500 hover:bg-green-700"
+                    : service.color === "orange"
+                    ? "bg-orange-500 hover:bg-orange-700"
+                    : "bg-teal-500 hover:bg-teal-700"
+                } text-white font-semibold text-xs sm:text-sm md:text-base lg:text-lg py-3 rounded-lg text-center cursor-pointer transition w-full`}
               >
                 {service.label}
               </div>
