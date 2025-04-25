@@ -1,11 +1,11 @@
 const Request = require("../models/Requests"); // Import your model
 
 exports.OtpVerification = async (req, res) => {
-    // console.log("I am requeat",req)
-    console.log("request body",req.body)
+    // //console.log("I am requeat",req)
+    //console.log("request body",req.body)
   try {
     const { customerEmail, serviceProviderEmail, otp } = req.body;
-    console.log(customerEmail, serviceProviderEmail, otp)
+    //console.log(customerEmail, serviceProviderEmail, otp)
 
     // Find the request with the provided customer email, service provider email, and OTP
     const existingRequest = await Request.findOne({
@@ -15,7 +15,7 @@ exports.OtpVerification = async (req, res) => {
     });
 
     if (!existingRequest) {
-        console.log("not exist")
+        //console.log("not exist")
       return res.status(400).json({ message: "Invalid OTP or request not found" });
     }
    

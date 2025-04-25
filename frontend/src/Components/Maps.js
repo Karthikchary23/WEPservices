@@ -78,7 +78,8 @@ const Map = ({ providerLocation, customerLocation }) => {
     }
   }, []);
 
-  if (!L || !userLocation) return <div style={{ textAlign: "center", padding: "20px" }}>Loading map...</div>;
+  if (!L || !userLocation) return <div style={{ textAlign: "center", padding: "20px"  }}><p className="text-white text-lg font-bold mb-2">Loading map...</p>
+    </div>;
 
   const center = providerLocation?.lat && providerLocation?.lng && customerLocation?.lat && customerLocation?.lng
     ? [

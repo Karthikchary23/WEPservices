@@ -31,8 +31,8 @@ export default function CustomerSignup() {
 
       if (response.status === 200) {
         setOtpSent(true);
-        console.log(response.data.message);
-        console.log(response.data.otp);
+        //console.log(response.data.message);
+        //console.log(response.data.otp);
         setOtp(response.data.otp);
         alert("OTP sent successfully");
       } else {

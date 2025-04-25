@@ -45,14 +45,14 @@ const CustomerDashboard = () => {
         );
 
         if (response.status === 200) {
-          console.log("customer Respjnse", response.data);
+          //console.log("customer Respjnse", response.data);
           setName(response.data.customer.name);
           setEmail1(response.data.customer.email);
           setCustomerAddress(response.data.customer.Fulladdress);
           setServicesRecievedCount(response.data.customer.servicesRecievedCount);
           setServicesRejectedCount(response.data.customer.servicesRejectedCount);
           alert(`Welcome, ${response.data.customer.name}`);
-          console.log("Socket Connected:", socket.connected);
+          //console.log("Socket Connected:", socket.connected);
           socket.emit("registerCustomer", response.data.customer.email);
 
         }
@@ -83,12 +83,12 @@ const CustomerDashboard = () => {
     };
 
     const handleNotification = async (data) => {
-      console.log("Service provider assigned:", data);
+      //console.log("Service provider assigned:", data);
       alert(`Service Accepted! Provider: ${data.providerName}`);
 
       try {
         const acceptedRequest = await fetchingAcceptedRequests(data.providerEmail, data.customerEmail);
-        console.log("Fetched Request:", acceptedRequest);
+        //console.log("Fetched Request:", acceptedRequest);
 
         // Add missing fields (email, address, and currentLocation) to the acceptedRequest object
         const completeRequest = {
@@ -113,7 +113,7 @@ const CustomerDashboard = () => {
       }
     };
 
-    console.log("Setting up notification listener");
+    //console.log("Setting up notification listener");
     socket.on("notification", handleNotification);
 
     return () => {
@@ -122,8 +122,8 @@ const CustomerDashboard = () => {
   }, [socket]);
 
   // useEffect(() => {
-  //   console.log("Updated Requests State:", requests);
-  //   console.log("Updated Service Provider State:", serviceProvider);
+  //   //console.log("Updated Requests State:", requests);
+  //   //console.log("Updated Service Provider State:", serviceProvider);
   // }, [requests, serviceProvider]);
 
   useEffect(() => {
@@ -132,7 +132,7 @@ const CustomerDashboard = () => {
         navigator.geolocation.watchPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log("User Location:", latitude, longitude);
+            //console.log("User Location:", latitude, longitude);
 
             // Update state
             setLocation({ lat: latitude, lng: longitude });
@@ -146,7 +146,7 @@ const CustomerDashboard = () => {
           { enableHighAccuracy: true, maximumAge: 0 }
         );
       } else {
-        console.log("Geolocation is not supported by this browser.");
+        //console.log("Geolocation is not supported by this browser.");
       }
     }
 
@@ -164,7 +164,7 @@ const CustomerDashboard = () => {
         );
        
 
-        console.log("Location updated successfully!");
+        //console.log("Location updated successfully!");
       } catch (error) {
         alert("not success");
         console.error("Error updating location:", error);
@@ -238,8 +238,8 @@ const CustomerDashboard = () => {
       router.push("/");
     }, 500); // Ensure logout is processed before redirect
   };
-  console.log("craztyy",requests)
-  console.log("service provider ",serviceProvider)
+  //console.log("craztyy",requests)
+  //console.log("service provider ",serviceProvider)
 
   
   const handleCancel = (serviceProviderEmail) => {
@@ -271,12 +271,12 @@ const CustomerDashboard = () => {
           await axios.post("https://wepservicesonline.onrender.com/customer/servicerejectedcount",{customerEmail: email1})
           .then((response)=>{
             if(response.status===200){
-                console.log(response);
+                //console.log(response);
                 setServicesRejectedCount(response.data.servicesRejectedCount);
             }
           })
           .catch((error)=>{
-            console.log("Error incrementing service recieved count",error);
+            //console.log("Error incrementing service recieved count",error);
           });
         }
       })
@@ -306,11 +306,11 @@ const CustomerDashboard = () => {
           await axios.post("https://wepservicesonline.onrender.com/customer/servicerecievedcount", { customerEmail: email1 })
             .then((response) => {
               if (response.status === 200) {
-                console.log(response);
+                //console.log(response);
                 setServicesRecievedCount(response.data.servicesRecievedCount);
 
                 const local = JSON.parse(localStorage.getItem("serviceProviderDetails"));
-                // console.log("yyyyyyyyyyyyyyyyyyyy",local)
+                // //console.log("yyyyyyyyyyyyyyyyyyyy",local)
                 const updatedRequests = local.filter(
                   (provider) => provider.email !== provider.email
                 );
@@ -320,7 +320,7 @@ const CustomerDashboard = () => {
               }
             })
             .catch((error) => {
-              console.log("Error incrementing service recieved count", error);
+              //console.log("Error incrementing service recieved count", error);
             });
         } else {
           alert("Enter valid OTP");
@@ -335,9 +335,9 @@ const CustomerDashboard = () => {
       }, 2000); // Adjust the delay as needed
   };
   socket.on("providerLocationUpdate", (data) => {
-    console.log("Provider location update:", data);
+    //console.log("Provider location update:", data);
     const { lat, lng } = data;
-    console.log("Updated provider location:", lat, lng);
+    //console.log("Updated provider location:", lat, lng);
     // alert("Provider location updated!");
     setserviceProviderLocation({ lat, lng });
   })
@@ -420,13 +420,13 @@ const CustomerDashboard = () => {
               <h2 className="text-lg sm:text-xl font-bold mb-2">Service Provider Details</h2>
               <p><strong>Name:</strong> {provider.Name || "N/A"}</p>
               <p><strong>Mobile:</strong> {provider.Mobile || "N/A"}</p>
-              <p><strong>Email:</strong> {provider.email || "N/A"}</p>
-              <p>
+              {/* <p><strong>Email:</strong> {provider.email || "N/A"}</p> */}
+              {/* <p>
                 <strong>Location:</strong>{" "}
                 {provider?.currentLocation?.coordinates?.length === 2
                   ? `${provider.currentLocation.coordinates[0]}, ${provider.currentLocation.coordinates[1]}`
                   : "Location not available"}
-              </p>
+              </p> */}
               <p><strong>Service Type:</strong> {provider.ServiceType || "N/A"}</p>
 
               <div className="mt-4">

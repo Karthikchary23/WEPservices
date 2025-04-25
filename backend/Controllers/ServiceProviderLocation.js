@@ -3,7 +3,7 @@ const Serviceprovider = require('../models/Serviceprovider');
 exports.ServiceProvicerlocationUpdate = async (req, res) => {
     const { email, latitude, longitude } = req.body;
 
-    console.log(latitude, longitude, email);
+    //console.log(latitude, longitude, email);
 
     if (!email || latitude === undefined || longitude === undefined) {
         return res.status(400).json({ message: 'Email, latitude, and longitude are required' });

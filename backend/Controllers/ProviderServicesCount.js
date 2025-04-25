@@ -8,7 +8,7 @@ exports.ServicesProvidedCountForProvider = async (req, res) => {
       }
   
       const provider = await ServiceProvider.findOne({ email: providerEmail });
-      console.log(provider);
+      //console.log(provider);
       if (!provider) {
         return res.status(404).json({ message: "Provider not found" });
       }

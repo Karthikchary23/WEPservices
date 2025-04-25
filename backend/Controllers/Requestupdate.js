@@ -23,7 +23,7 @@ exports.Updaterequest = async (req, res) => {
     if (!existingRequest) {
       // Generate a 6-digit random OTP
       const otp = Math.floor(100000 + Math.random() * 900000).toString();
-      console.log("Generated OTP:", otp);
+      //console.log("Generated OTP:", otp);
 
       // If request does not exist, create a new one
       const newRequest = new Request({

@@ -90,7 +90,7 @@ export default function SignIn() {
       if (response.status !== 200) {
         throw new Error("Sign in failed");
       }
-      console.log(response.data.token);
+      //console.log(response.data.token);
       const ct=Cookies.get('ct')
       if (ct)
       {
@@ -101,7 +101,7 @@ export default function SignIn() {
       Cookies.set("spt", response.data.token, { expires: 7 }); 
 
 
-      alert("Signed in successfully!");
+      // alert("Signed in successfully!");
       router.push("/serviceproviderdashboard");
     } catch (err) {
       setError(err.response.data.message);

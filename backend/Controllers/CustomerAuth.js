@@ -5,8 +5,8 @@ exports.customerSignUp = async (req, res) => {
     try {
         const { name, email, phone, Fulladdress, city, postalCode, country, password } = req.body;
         const customer = await Customer.findOne({ email });
-        console.log('customer data');
-        console.log(customer);
+        //console.log('customer data');
+        //console.log(customer);
         if (customer) {
             return res.status(400).json({ message: 'User already exists' });
         }

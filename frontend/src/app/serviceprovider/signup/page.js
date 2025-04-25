@@ -34,8 +34,8 @@ export default function ServiceProviderSignup() {
 
         if (response.status === 200) {
             setOtpSent(true);
-            console.log(response.data.message);
-            console.log(response.data.otp);
+            //console.log(response.data.message);
+            //console.log(response.data.otp);
             setOtp(response.data.otp);
         } else {
             throw new Error(response.data.message);
@@ -53,8 +53,8 @@ export default function ServiceProviderSignup() {
     try {
       setIsLoading(true);
       setSignupError(null);
-      console.log(otp)
-      console.log(data.verificationotp)
+      //console.log(otp)
+      //console.log(data.verificationotp)
 
       if (data.verificationotp !== otp) {
         throw new Error("Invalid OTP");
@@ -72,8 +72,8 @@ export default function ServiceProviderSignup() {
       };
 
       const response = await axios.post("https://wepservicesonline.onrender.com/service-provider/service-providersignup", signupData);
-      console.log(response.status)
-      console.log(response.data.message)
+      //console.log(response.status)
+      //console.log(response.data.message)
 
       if (response.status === 200) {
         alert("Signup successful!");

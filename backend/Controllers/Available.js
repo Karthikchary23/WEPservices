@@ -3,7 +3,7 @@ const ServiceProvider = require('../models/Serviceprovider'); // Ensure this pat
 
 exports.UpdateAvailablestatus = async (req, res) => {
     const { email } = req.body;
-    console.log("Email inside the status:", email);
+    //console.log("Email inside the status:", email);
 
     if (!email) {
         return res.status(400).json({ message: 'Email is required' });

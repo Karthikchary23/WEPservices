@@ -2,7 +2,7 @@ const { getIo, getServiceProviders } = require("../socket"); // ✅ Import corre
 
 exports.requestService = async (req, res) => {
     const { name, email, latitude, longitude, serviceType,Fulladdress } = req.body;
-    console.log("Received request:", req.body);
+    //console.log("Received request:", req.body);
 
     const request = {
         customerName: name,

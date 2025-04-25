@@ -6,7 +6,7 @@ const ServiceProvider = require('../models/Serviceprovider');
 
 exports.Servicesignup = async (req, res) => {
   const { firstName, lastName, email, mobile, address, localArea, serviceType, password, profileImage } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   
   try {
     const serviceProvider = await ServiceProvider.findOne({ email });
@@ -28,10 +28,10 @@ exports.Servicesignup = async (req, res) => {
       password: hashedPassword,
     });
 
-    console.log(newServiceProvider);
+    //console.log(newServiceProvider);
     await newServiceProvider.save();
 
-    console.log("success"); // ✅ Fixed typo here
+    //console.log("success"); // ✅ Fixed typo here
     res.status(200).json({ message: "Service provider registered successfully" }); // Response to client
   } catch (error) {
     console.error("Error:", error); // Log full error details

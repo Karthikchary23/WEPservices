@@ -6,10 +6,10 @@ const ServiceProvider = require('../models/Serviceprovider');
 
 exports.ServiceproviderSignin = async (req, res) => {
   const { email, password } = req.body;
-  console.log(req.body);
+  //console.log(req.body);
   try {
     const serviceProvider = await ServiceProvider.findOne({ email });
-    // console.log(serviceProvider);
+    // //console.log(serviceProvider);
     if (!serviceProvider) {
       return res.status(400).json({ message: 'Email not found' });
     }
@@ -17,9 +17,9 @@ exports.ServiceproviderSignin = async (req, res) => {
     if (!isMatch) {
       return res.status(400).json({ message: 'Invalid password' });
     }
-    // console.log("password matched");
+    // //console.log("password matched");
     const token = jwt.sign({ id: serviceProvider._id,email:serviceProvider.email,password:serviceProvider.password }, process.env.JWT_SECRET);
-    // console.log(token);
+    // //console.log(token);
     res.status(200).json({ token });
     } catch (error) {
       console.error(error)

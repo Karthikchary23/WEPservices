@@ -97,7 +97,7 @@ export default function SignIn() {
       if (response.status !== 200) {
         throw new Error("Sign in failed");
       }
-      console.log(response.data.token);
+      //console.log(response.data.token);
       const spt=Cookies.get('spt')
             if (spt)
             {

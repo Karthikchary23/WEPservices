@@ -47,7 +47,7 @@ const ServiceProviderDashboard = () => {
         );
 
         if (response.status === 200) {
-          console.log("Current response", response.data);
+          //console.log("Current response", response.data);
           setEmail1(response.data.serviceprovider.email);
           setName(response.data.serviceprovider.firstName || "Provider");
           setServiceType(response.data.serviceprovider.serviceType);
@@ -95,7 +95,7 @@ const ServiceProviderDashboard = () => {
         navigator.geolocation.watchPosition(
           (position) => {
             const { latitude, longitude } = position.coords;
-            console.log(" iam printing ", latitude, longitude);
+            //console.log(" iam printing ", latitude, longitude);
             setLocation({ lat: latitude, lng: longitude });
 
             updateLocation(latitude, longitude);
@@ -122,7 +122,7 @@ const ServiceProviderDashboard = () => {
             email: email1,
           }
         );
-        console.log("Location updated successfully!");
+        //console.log("Location updated successfully!");
       } catch (error) {
         console.error("Error updating location:", error);
       }
@@ -133,21 +133,21 @@ const ServiceProviderDashboard = () => {
     const interval = setInterval(() => {
       socket.emit("providercurrentlocation", { location, customerEmail });
 
-      console.log("Location sent to customer", location, customerEmail);
+      //console.log("Location sent to customer", location, customerEmail);
     }, 10000);
 
     return () => clearInterval(interval);
   }, [email1, location, customerEmail]);
 
-  console.log("customerLocation", customerLocation);
-  console.log("servicelocation", location);
+  //console.log("customerLocation", customerLocation);
+  //console.log("servicelocation", location);
 
   useEffect(() => {
     socket.on("newServiceRequest", (data) => {
       const isAvailable = localStorage.getItem("available") === "true";
 
       if (isAvailable) {
-        console.log("New service request received:", data);
+        //console.log("New service request received:", data);
         alert(`New request from ${data.customerName} for ${data.serviceType}`);
         setRequests((prevRequests) => [
           ...prevRequests,
@@ -157,7 +157,7 @@ const ServiceProviderDashboard = () => {
     });
 
     socket.on("connect", () => console.log("Socket connected"));
-    // socket.on("disconnect", () => console.log("Socket disconnected"));
+    socket.on("disconnect", () => console.log("Socket disconnected"));
 
     return () => {
       socket.off("newServiceRequest");
@@ -165,28 +165,28 @@ const ServiceProviderDashboard = () => {
   }, []);
   useEffect(() => {
     const customerLocationData = localStorage.getItem("serviceAccepted");
-    console.log("customerLocation=================", customerLocationData);
+    //console.log("customerLocation=================", customerLocationData);
 
     if (customerLocationData) {
       try {
         const parsedData = JSON.parse(customerLocationData);
         if (Array.isArray(parsedData) && parsedData.length > 0) {
           const latestCustomer = parsedData[parsedData.length - 1]; // Fetch the latest customer data
-          console.log(
-            "Parsed customerLocation:",
-            latestCustomer.customerlocation
-          );
-          console.log("Parsed customerMail:", latestCustomer.customerId);
+          // //console.log(
+          //   "Parsed customerLocation:",
+          //   latestCustomer.customerlocation
+          // );
+          //console.log("Parsed customerMail:", latestCustomer.customerId);
           setcustomerLocation(latestCustomer.customerlocation);
           setCustomerEmail(latestCustomer.customerId); // Store customer email
         } else {
-          console.log("No valid customer location data found.");
+          //console.log("No valid customer location data found.");
         }
       } catch (error) {
         console.error("Error parsing customer location data:", error);
       }
     } else {
-      console.log("No customer location found in localStorage.");
+      //console.log("No customer location found in localStorage.");
     }
   }, []);
 
@@ -211,8 +211,8 @@ const ServiceProviderDashboard = () => {
         const culatitude = coordinates[0];
         const culongitude = coordinates[1];
 
-        console.log("Latitude:", culatitude);
-        console.log("Longitude:", culongitude);
+        //console.log("Latitude:", culatitude);
+        //console.log("Longitude:", culongitude);
         setcustomerLocation({ lat: culatitude, lng: culongitude });
         const updatedCustomerLocation = { lat: culatitude, lng: culongitude };
         const data = {
@@ -225,7 +225,7 @@ const ServiceProviderDashboard = () => {
           serviceproviderlocation: location,
         };
 
-        console.log("Data Object:", data);
+        //console.log("Data Object:", data);
         axios
           .post("https://wepservicesonline.onrender.com/available/isavailable", {
             email: email1,
@@ -238,7 +238,7 @@ const ServiceProviderDashboard = () => {
                 data
               )
               .then((response) => {
-                console.log(response);
+                //console.log(response);
 
                 socket.emit("serviceAccepted", {
                   customerEmail: requestId, // Customer's email
@@ -290,10 +290,10 @@ const ServiceProviderDashboard = () => {
               });
           })
           .catch((err) => {
-            console.log(err);
+            //console.log(err);
           });
       } else {
-        console.log("Invalid customerlocation format");
+        //console.log("Invalid customerlocation format");
       }
     } else {
       console.error("customerlocation is not a valid string");
@@ -304,7 +304,7 @@ const ServiceProviderDashboard = () => {
   };
   
   socket.on("serviceAcceptednotification", (data) => {
-    console.log("Service Verified" );
+    //console.log("Service Verified" );
     setVerifiedStatus(true);
   });
 
@@ -346,7 +346,7 @@ const ServiceProviderDashboard = () => {
               { providerEmail: email1 }
             )
             .then((response) => {
-              console.log(response);
+              //console.log(response);
               setServicesRejectedCount(response.data.servicesRejectedCount);
             })
             .catch((error) => {
@@ -386,16 +386,16 @@ const ServiceProviderDashboard = () => {
 
   const handleComplete = async (requestId) => {
     const temp = JSON.parse(localStorage.getItem("serviceAccepted"));
-    console.log("temp",temp);
+    //console.log("temp",temp);
     const customerMail = temp[0].customerId;
-    console.log("customerMail",customerMail);
-    console.log("serviceprovideremail", email1);
+    //console.log("customerMail",customerMail);
+    //console.log("serviceprovideremail", email1);
     await axios.post(
       "https://wepservicesonline.onrender.com/request/deleterequest",{
         customermail: customerMail,
         serviceprovideremail: email1,
       }).then(async (response) => {
-        console.log("Request completed successfully:", response.data);
+        //console.log("Request completed successfully:", response.data);
         alert("Request completed successfully!");
 
       await axios
@@ -404,7 +404,7 @@ const ServiceProviderDashboard = () => {
         { providerEmail: email1 }
       )
       .then((response) => {
-        console.log(response);
+        //console.log(response);
         setServicesProvidedCount(response.data.servicesProvidedCount);
         setRequests((prevRequests) =>
           prevRequests.filter((req) => req.customerId !== requestId)
