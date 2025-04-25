@@ -57,9 +57,9 @@ const ServiceProviderDashboard = () => {
           setServicesRejectedCount(
             response.data.serviceprovider.servicesRejectedCount
           );
-          alert(
-            `Welcome, ${response.data.serviceprovider.firstName || "Provider"}`
-          );
+          // alert(
+          //   `Welcome, ${response.data.serviceprovider.firstName || "Provider"}`
+          // );
 
           const providerData = {
             email: response.data.serviceprovider.email,
