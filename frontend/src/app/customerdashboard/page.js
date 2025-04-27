@@ -23,7 +23,6 @@ const CustomerDashboard = () => {
   const [servicesRecievedCount, setServicesRecievedCount] = useState(0);
   const [servicesRejectedCount, setServicesRejectedCount] = useState(0);
   const [serviceProviderlocation,setserviceProviderLocation]=useState({lat:null,lng:null})
-  const [waitingForProvider, setWaitingForProvider] = useState(false);
 
   useEffect(() => {
     // Remove "spt" token (if any)
@@ -45,7 +44,7 @@ const CustomerDashboard = () => {
         );
 
         if (response.status === 200) {
-          //console.log("customer Respjnse", response.data);
+          console.log("customer Respjnse", response.data);
           setName(response.data.customer.name);
           setEmail1(response.data.customer.email);
           setCustomerAddress(response.data.customer.Fulladdress);
@@ -217,6 +216,7 @@ const CustomerDashboard = () => {
           latitude: location.lat,
           longitude: location.lng,
           Fulladdress: customerAddress,
+          Mobile:
           serviceType,
         }
       );

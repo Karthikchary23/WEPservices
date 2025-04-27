@@ -142,8 +142,7 @@ const ServiceProviderDashboard = () => {
     return () => clearInterval(interval);
   }, [email1, location, customerEmail]);
 
-  //console.log("customerLocation", customerLocation);
-  //console.log("servicelocation", location);
+ 
 
   useEffect(() => {
     socket.on("newServiceRequest", (data) => {
