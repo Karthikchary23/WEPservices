@@ -288,8 +288,8 @@ const CustomerDashboard = () => {
 
         // Update local storage
         localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
-        console.error("Error deleting request:", error);
-        alert("Failed to cancel the request. Please try again.");
+        // console.error("Error deleting request:", error);
+        // alert("Failed to cancel the request. Please try again.");
       });
 
 
