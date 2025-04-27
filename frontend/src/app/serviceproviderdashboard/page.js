@@ -30,7 +30,7 @@ const ServiceProviderDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [customerEmail, setCustomerEmail] = useState({});
   const [verifiedstatus, setVerifiedStatus] = useState(false);
-  const [customermobile, setCustomerMobile] = useState({});
+  const [available, setAvailable] = useState(true);
 
   useEffect(() => {
     const spt = Cookies.get("spt");
@@ -58,7 +58,8 @@ const ServiceProviderDashboard = () => {
             response.data.serviceprovider.servicesRejectedCount
           );
           const availabe = localStorage.getItem("available");
-          if (availabe === "true") {
+          setAvailable(availabe);
+          if (available === "true") {
             alert(
               `Welcome, ${response.data.serviceprovider.firstName || "Provider"}`
             );
@@ -139,8 +140,11 @@ const ServiceProviderDashboard = () => {
 
       //console.log("Location sent to customer", location, customerEmail);
     }, 10000);
+    const availabe = localStorage.getItem("available");
+    setAvailable(availabe);
 
     return () => clearInterval(interval);
+    
   }, [email1, location, customerEmail]);
 
  
@@ -272,6 +276,7 @@ const ServiceProviderDashboard = () => {
                   providerLocation: location,
                   isAccepted: true,
                   isAvailable: false,
+                  Mobile: Mobile,
                 };
 
                 // Add new entry to the array
@@ -303,9 +308,9 @@ const ServiceProviderDashboard = () => {
     } else {
       console.error("customerlocation is not a valid string");
     }
-    // setTimeout(() => {
-    //   window.location.reload();
-    // }, 5000); // Reset verified status after 10 seconds
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000); // Reset verified status after 10 seconds
   };
   
   socket.on("serviceAcceptednotification", (data) => {
@@ -316,7 +321,6 @@ const ServiceProviderDashboard = () => {
   const handleReject = (requestId) => {
     // Emit cancelRequest event to the server
 
-    alert("Request has been canceled!");
     localStorage.setItem("available", "true");
     axios
       .post("https://wepservicesonline.onrender.com/request/deleterequest", {
@@ -325,6 +329,8 @@ const ServiceProviderDashboard = () => {
       })
       .then(async (response) => {
         if (response.status == 200) {
+              alert("Request has been canceled!");
+
           socket.emit("cancelRequest", {
             customerEmail: requestId,
             providerEmail: email1,
@@ -353,6 +359,9 @@ const ServiceProviderDashboard = () => {
             .then((response) => {
               //console.log(response);
               setServicesRejectedCount(response.data.servicesRejectedCount);
+              setTimeout(() => {
+                window.location.reload();
+              }, 3000); // Reset verified status after 10 seconds
             })
             .catch((error) => {
               console.log(
@@ -375,7 +384,7 @@ const ServiceProviderDashboard = () => {
   };
   useEffect(() => {
     socket.on("requestCanceledbycutomer", (data) => {
-      alert(`Request canceled by the customer: ${data.customerEmail}`);
+      alert(`Request canceled by the customer`);
       const updatedRequests = requests.filter(
         (req) => req.customerId !== data.customerEmail
       );
@@ -429,6 +438,9 @@ const ServiceProviderDashboard = () => {
           lat: null,
           lng: null,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 3000); // Reset verified status after 10 seconds
       })
       .catch((error) => {
         console.log(
@@ -489,8 +501,9 @@ const ServiceProviderDashboard = () => {
                   className="border border-gray-700 p-4 mb-4 bg-gray-800 rounded-md text-white"
                 >
                   <p><strong>Customer name:</strong> {req.customerName}</p>
-                  <p><strong>Customer ID:</strong> {req.customerId}</p>
-                  <p><strong>Mobile:</strong> {req.Mobile}</p>
+                  {/* <p><strong>Customer ID:</strong> {req.customerId}</p> */}
+                  {available === "false"? 
+                  <p><strong>Mobile:</strong> {req.Mobile}</p>:""}
                   <p><strong>Service Type:</strong> {req.serviceType}</p>
                   <p><strong>Location:</strong> {req.Fulladdress}</p>
 
@@ -501,10 +514,11 @@ const ServiceProviderDashboard = () => {
                           handleAccept(
                             req.customerId,
                             req.customerLocation,
-                            req.Mobile,
+                           
                             
                             req.serviceType,
                             req.customerName,
+                            req.Mobile,
                             req.Fulladdress
                           )
                         }

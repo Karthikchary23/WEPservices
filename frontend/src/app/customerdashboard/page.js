@@ -276,6 +276,9 @@ const CustomerDashboard = () => {
                 //console.log(response);
                 setServicesRejectedCount(response.data.servicesRejectedCount);
             }
+            setTimeout(() => {
+              window.location.reload();
+            }, 3000); // Reset verified status after 10 seconds
           })
           .catch((error)=>{
             
@@ -353,12 +356,15 @@ const CustomerDashboard = () => {
 
   useEffect(() => {
     socket.on("requestCanceledbyprovider", (data) => {
-      alert(`Request canceled of the service provider: ${data.providerEmail}`);
+      // alert(`Request canceled of the service provider`);
       const updatedRequests = requests.filter(
         (provider) => provider.email !== data.providerEmail
       );
       setRequests(updatedRequests);
       localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
+      setTimeout(() => {
+        window.location.reload();
+      }, 3000); // Reset verified status after 10 seconds
     });
   
     return () => {
