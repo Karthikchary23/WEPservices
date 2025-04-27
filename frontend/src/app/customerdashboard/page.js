@@ -276,7 +276,13 @@ const CustomerDashboard = () => {
             }
           })
           .catch((error)=>{
-            //console.log("Error incrementing service recieved count",error);
+            const updatedRequests = requests.filter(
+              (provider) => provider.email !== serviceProviderEmail
+            );
+            setRequests(updatedRequests);
+    
+            // Update local storage
+            localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
           });
         }
       })
@@ -398,8 +404,7 @@ const CustomerDashboard = () => {
             ].map((service) => (
               <div
                 key={service.type}
-                onClick={() => handleRequestService(service.type)}
-                className={`${
+                onClick={() => handleRequestService(service.type)}                className={`${
                   service.color === "blue"
                     ? "bg-blue-500 hover:bg-blue-700"
                     : service.color === "green"
