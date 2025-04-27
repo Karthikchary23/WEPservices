@@ -20,6 +20,7 @@ const CustomerDashboard = () => {
   const [serviceProvider, setServiceProvider] = useState([]);
   const [requests,setRequests] = useState([]);
   const [otp,setOtp]=useState("");
+  const [mobile,setMobile]=useState("");
   const [servicesRecievedCount, setServicesRecievedCount] = useState(0);
   const [servicesRejectedCount, setServicesRejectedCount] = useState(0);
   const [serviceProviderlocation,setserviceProviderLocation]=useState({lat:null,lng:null})
@@ -50,6 +51,7 @@ const CustomerDashboard = () => {
           setCustomerAddress(response.data.customer.Fulladdress);
           setServicesRecievedCount(response.data.customer.servicesRecievedCount);
           setServicesRejectedCount(response.data.customer.servicesRejectedCount);
+          setMobile(response.data.customer.phone);
           // alert(`Welcome, ${response.data.customer.name}`);
           //console.log("Socket Connected:", socket.connected);
           socket.emit("registerCustomer", response.data.customer.email);
@@ -216,7 +218,7 @@ const CustomerDashboard = () => {
           latitude: location.lat,
           longitude: location.lng,
           Fulladdress: customerAddress,
-          Mobile:
+          Mobile:mobile,
           serviceType,
         }
       );
@@ -369,7 +371,7 @@ const CustomerDashboard = () => {
   {/* Fixed Header */}
   <header className="bg-[#111] text-white text-base sm:text-lg md:text-xl px-4 sm:px-6 py-4 flex justify-between items-center shadow z-10 fixed w-full top-0 left-0">
     <div className="flex flex-col sm:flex-row sm:gap-3 items-start sm:items-center">
-      <span className="font-semibold">Welcome, {name}</span>
+      <span className="font-semibold">Welcome, {name} {mobile}</span>
       <span className="text-sm sm:text-base">
         Services Received: {servicesRecievedCount}, Rejected: {servicesRejectedCount}
       </span>

@@ -5,6 +5,7 @@ const requestSchema = new mongoose.Schema({
     customermail: { type: String, required: true }, 
     servicetype: { type: String, required: true }, 
     otp: { type: Number, required: false }, 
+    CustomerMobile: { type: Number, required: true },
 
 
     serviceprovidername: { type: String, required: true }, 

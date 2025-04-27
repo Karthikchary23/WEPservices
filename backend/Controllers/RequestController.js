@@ -1,7 +1,7 @@
 const { getIo, getServiceProviders } = require("../socket"); // ✅ Import correctly
 
 exports.requestService = async (req, res) => {
-    const { name, email, latitude, longitude, serviceType,Fulladdress } = req.body;
+    const { name, email, latitude, longitude, serviceType,Fulladdress,Mobile } = req.body;
     //console.log("Received request:", req.body);
 
     const request = {
@@ -9,6 +9,8 @@ exports.requestService = async (req, res) => {
         customerId: email,
         serviceType,
         Fulladdress,
+        Mobile,
+
         customerLocation: [latitude, longitude],
     };
 

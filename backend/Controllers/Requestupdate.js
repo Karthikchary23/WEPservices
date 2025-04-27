@@ -12,6 +12,7 @@ exports.Updaterequest = async (req, res) => {
       servicetype,
       serviceprovidername,
       serviceproviderlocation,
+      Mobile,
     } = req.body;
 
     // Check if a request with the same customer and provider exists

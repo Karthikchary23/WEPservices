@@ -149,7 +149,7 @@ const ServiceProviderDashboard = () => {
       const isAvailable = localStorage.getItem("available") === "true";
 
       if (isAvailable) {
-        //console.log("New service request received:", data);
+        console.log("New service request received:", data);
         alert(`New request from ${data.customerName} for ${data.serviceType}`);
         setRequests((prevRequests) => [
           ...prevRequests,
