@@ -182,7 +182,7 @@ export default function ServiceProviderSignup() {
               <option value="">Select service type</option>
               <option value="Plumber">Plumber</option>
               <option value="Electrician">Electrician</option>
-              <option value="Cleaning">Cleaning</option>
+              <option value="Water Service">Water Service</option>
               <option value="Cook">Cook</option>
             </select>
             {errors.serviceType && (
