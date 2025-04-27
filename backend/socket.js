@@ -5,7 +5,7 @@ const serviceProviders = {};
 function init(server) {
   io = new Server(server, {
     cors: {
-      origin: "https://wepservicesonline.vercel.app",
+      origin: "*",
     },
   });
 
