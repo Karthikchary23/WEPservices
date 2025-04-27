@@ -30,6 +30,7 @@ const ServiceProviderDashboard = () => {
   const [loading, setLoading] = useState(true);
   const [customerEmail, setCustomerEmail] = useState({});
   const [verifiedstatus, setVerifiedStatus] = useState(false);
+  const [customermobile, setCustomerMobile] = useState({});
 
   useEffect(() => {
     const spt = Cookies.get("spt");
@@ -197,6 +198,7 @@ const ServiceProviderDashboard = () => {
     customerlocation,
     servicetype,
     cuname,
+    Mobile,
     fulladdress
   ) => {
     // alert(customerlocation);
@@ -222,6 +224,7 @@ const ServiceProviderDashboard = () => {
           customermail: requestId,
           customerlocation: updatedCustomerLocation,
           servicetype,
+          CustomerMobile: Mobile,
           serviceprovidername: name,
           serviceprovideremail: email1,
           serviceproviderlocation: location,
@@ -300,9 +303,9 @@ const ServiceProviderDashboard = () => {
     } else {
       console.error("customerlocation is not a valid string");
     }
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000); // Reset verified status after 10 seconds
+    // setTimeout(() => {
+    //   window.location.reload();
+    // }, 5000); // Reset verified status after 10 seconds
   };
   
   socket.on("serviceAcceptednotification", (data) => {
@@ -498,6 +501,7 @@ const ServiceProviderDashboard = () => {
                           handleAccept(
                             req.customerId,
                             req.customerLocation,
+                            req.Mobile,
                             
                             req.serviceType,
                             req.customerName,

@@ -12,7 +12,7 @@ exports.Updaterequest = async (req, res) => {
       servicetype,
       serviceprovidername,
       serviceproviderlocation,
-      Mobile,
+      CustomerMobile,
     } = req.body;
 
     // Check if a request with the same customer and provider exists
@@ -33,6 +33,7 @@ exports.Updaterequest = async (req, res) => {
         customername: customername,
         servicetype: servicetype,
         serviceprovidername: serviceprovidername,
+        CustomerMobile: CustomerMobile,
         status: "Pending",
         customerLocation: {
           lat: customerlocation.lat, // ✅ Corrected access
