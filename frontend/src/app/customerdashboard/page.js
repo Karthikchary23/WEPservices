@@ -276,17 +276,18 @@ const CustomerDashboard = () => {
             }
           })
           .catch((error)=>{
-            const updatedRequests = requests.filter(
-              (provider) => provider.email !== serviceProviderEmail
-            );
-            setRequests(updatedRequests);
-    
-            // Update local storage
-            localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
+            
           });
         }
       })
       .catch((error) => {
+        const updatedRequests = requests.filter(
+          (provider) => provider.email !== serviceProviderEmail
+        );
+        setRequests(updatedRequests);
+
+        // Update local storage
+        localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
         console.error("Error deleting request:", error);
         alert("Failed to cancel the request. Please try again.");
       });
