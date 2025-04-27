@@ -55,7 +55,7 @@ exports.Updaterequest = async (req, res) => {
       res.status(400).json({ message: "Request already exists" });
     }
   } catch (error) {
-    console.error("Error processing request:", error);
+    // console.error("Error processing request:", error);
     res.status(500).json({ message: "Internal server error" });
   }
 };
@@ -81,7 +81,7 @@ exports.Deleterequest = async (req, res) => {
         res.status(404).json({ message: "Request not found" });
       }
     } catch (error) {
-      console.error("Error deleting request:", error);
+      // console.error("Error deleting request:", error);
       res.status(500).json({ message: "Internal server error" });
     }
   };

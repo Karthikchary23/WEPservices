@@ -75,7 +75,7 @@ const ServiceProviderDashboard = () => {
           socket.emit("registerServiceProvider", providerData);
         }
       } catch (err) {
-        console.error("Token verification error:", err);
+        // console.error("Token verification error:", err);
         Cookies.remove("spt");
         router.push("/");
       } finally {
@@ -129,7 +129,7 @@ const ServiceProviderDashboard = () => {
         );
         //console.log("Location updated successfully!");
       } catch (error) {
-        console.error("Error updating location:", error);
+        // console.error("Error updating location:", error);
       }
     }
 
@@ -190,7 +190,7 @@ const ServiceProviderDashboard = () => {
           //console.log("No valid customer location data found.");
         }
       } catch (error) {
-        console.error("Error parsing customer location data:", error);
+        // console.error("Error parsing customer location data:", error);
       }
     } else {
       //console.log("No customer location found in localStorage.");
@@ -296,7 +296,7 @@ const ServiceProviderDashboard = () => {
                 );
               })
               .catch((error) => {
-                console.error("Error updating request:", error);
+                // console.error("Error updating request:", error);
               });
           })
           .catch((err) => {
@@ -364,15 +364,15 @@ const ServiceProviderDashboard = () => {
               }, 3000); // Reset verified status after 10 seconds
             })
             .catch((error) => {
-              console.log(
-                "Error at incrementing service rejected count for provider",
-                error
-              );
+              // console.log(
+              //   "Error at incrementing service rejected count for provider",
+              //   error
+              // );
             });
         }
       })
       .catch((error) => {
-        console.error("Error Deleting request request:", error);
+        // console.error("Error Deleting request request:", error);
       });
   };
 
@@ -443,15 +443,15 @@ const ServiceProviderDashboard = () => {
         }, 3000); // Reset verified status after 10 seconds
       })
       .catch((error) => {
-        console.log(
-          "Error at incrementing service provided count for provider",
-          error
-        );
+        // console.log(
+        //   "Error at incrementing service provided count for provider",
+        //   error
+        // );
       });
 
 
       }).catch((error) => {
-        console.error("Error completing request:", error);
+        // console.error("Error completing request:", error);
       }
     );
   };

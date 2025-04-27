@@ -28,7 +28,7 @@ exports.CustomerlocationUpdate = async (req, res) => {
 
         res.status(200).json({ message: 'Location updated successfully', customer });
     } catch (error) {
-        console.error('Error updating location:', error);
+        // console.error('Error updating location:', error);
         res.status(500).json({ message: 'Something went wrong' });
     }
 };

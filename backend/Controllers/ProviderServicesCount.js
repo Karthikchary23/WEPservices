@@ -22,7 +22,7 @@ exports.ServicesProvidedCountForProvider = async (req, res) => {
         servicesProvidedCount: provider.servicesProvidedCount,
       });
     } catch (error) {
-      console.error("Error incrementing services provided count:", error);
+      // console.error("Error incrementing services provided count:", error);
       return res.status(500).json({ message: "Internal Server Error" });
     }
   };
@@ -48,7 +48,7 @@ exports.ServicesProvidedCountForProvider = async (req, res) => {
         servicesRejectedCount: provider.servicesRejectedCount,
       });
     } catch (error) {
-      console.error("Error incrementing services rejected count:", error);
+      // console.error("Error incrementing services rejected count:", error);
       return res.status(500).json({ message: "Internal Server Error" });
     }
   };

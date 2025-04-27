@@ -21,7 +21,7 @@ exports.ServicesRecievedCountForCustomer = async (req, res) => {
       servicesRecievedCount: customer.servicesRecievedCount,
     });
   } catch (error) {
-    console.error("Error incrementing services received count:", error);
+    // console.error("Error incrementing services received count:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };
@@ -47,7 +47,7 @@ exports.ServicesRejectedCountForCustomer = async (req, res) => {
       servicesRejectedCount: customer.servicesRejectedCount,
     });
   } catch (error) {
-    console.error("Error incrementing services rejected count:", error);
+    // console.error("Error incrementing services rejected count:", error);
     return res.status(500).json({ message: "Internal Server Error" });
   }
 };

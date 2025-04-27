@@ -24,7 +24,7 @@ exports.UpdateAvailablestatus = async (req, res) => {
 
         res.status(200).json({ message: 'Availability status updated successfully', isAvailable: serviceprovider.isAvailable });
     } catch (error) {
-        console.error('Error updating availability status:', error);
+        // console.error('Error updating availability status:', error);
         res.status(500).json({ message: 'Something went wrong' });
     }
 };

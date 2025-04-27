@@ -58,7 +58,7 @@ const CustomerDashboard = () => {
 
         }
       } catch (err) {
-        console.error("Token verification error:", err);
+        // console.error("Token verification error:", err);
         Cookies.remove("ct"); // Remove invalid token
         router.push("/");
       }
@@ -110,7 +110,7 @@ const CustomerDashboard = () => {
         // Update serviceProvider state with the latest accepted request
         setServiceProvider(completeRequest);
       } catch (error) {
-        console.error("Error handling notification:", error);
+        // console.error("Error handling notification:", error);
       }
     };
 
@@ -168,7 +168,7 @@ const CustomerDashboard = () => {
         //console.log("Location updated successfully!");
       } catch (error) {
         alert("not success");
-        console.error("Error updating location:", error);
+        // console.error("Error updating location:", error);
       }
     }
 
@@ -227,7 +227,7 @@ const CustomerDashboard = () => {
         alert(`Request for ${serviceType} sent successfully!`);
       }
     } catch (error) {
-      console.error("Error sending request:", error);
+      // console.error("Error sending request:", error);
       alert("Failed to send service request.");
     }
   };
@@ -330,6 +330,9 @@ const CustomerDashboard = () => {
                 localStorage.setItem("serviceProviderDetails", JSON.stringify(updatedRequests));
                 setserviceProviderLocation({ lat: null, lng: null });
               }
+              setTimeout(() => {
+                window.location.reload(); // Reload the page after 2 seconds
+              }, 2000); // Adjust the delay as needed
             })
             .catch((error) => {
               //console.log("Error incrementing service recieved count", error);
@@ -339,12 +342,10 @@ const CustomerDashboard = () => {
         }
       })
       .catch((error) => {
-        console.error("Error verifying OTP:", error);
+        // console.error("Error verifying OTP:", error);
         alert("Enter valid otp");
       });
-      setTimeout(() => {
-        window.location.reload(); // Reload the page after 2 seconds
-      }, 2000); // Adjust the delay as needed
+     
   };
   socket.on("providerLocationUpdate", (data) => {
     //console.log("Provider location update:", data);
@@ -377,7 +378,7 @@ const CustomerDashboard = () => {
   {/* Fixed Header */}
   <header className="bg-[#111] text-white text-base sm:text-lg md:text-xl px-4 sm:px-6 py-4 flex justify-between items-center shadow z-10 fixed w-full top-0 left-0">
     <div className="flex flex-col sm:flex-row sm:gap-3 items-start sm:items-center">
-      <span className="font-semibold">Welcome, {name} {mobile}</span>
+      <span className="font-semibold">Welcome, {name} </span>
       <span className="text-sm sm:text-base">
         Services Received: {servicesRecievedCount}, Rejected: {servicesRejectedCount}
       </span>

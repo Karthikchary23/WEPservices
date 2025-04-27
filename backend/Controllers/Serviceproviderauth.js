@@ -34,7 +34,7 @@ exports.Servicesignup = async (req, res) => {
     //console.log("success"); // ✅ Fixed typo here
     res.status(200).json({ message: "Service provider registered successfully" }); // Response to client
   } catch (error) {
-    console.error("Error:", error); // Log full error details
+    // console.error("Error:", error); // Log full error details
 
     res.status(500).json({ message: "Something went wrong" });
   }

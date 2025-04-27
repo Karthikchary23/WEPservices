@@ -29,7 +29,7 @@ async function sendOtpEmail(email, otp) {
         
         await transporter.sendMail(mailOptions);
     } catch (error) {
-        console.error("Error sending email:", error);
+        // console.error("Error sending email:", error);
         throw new Error("Failed to send OTP email");
     }
 }
@@ -66,8 +66,8 @@ async function ServiceprovideSignInOtpRequest(req, res) {
 
         res.status(200).json({ message: 'OTP sent successfully', otp });
     } catch (error) {
-        console.error("Database error:", error);
-        console.error(error)
+        // console.error("Database error:", error);
+        // console.error(error)
         res.status(500).json({ message: 'Internal server error', error: error.message });
     }
 }
