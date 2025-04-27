@@ -13,7 +13,7 @@ const http = require("http"); // ✅ Add this line
 
 dotenv.config();
 
-app.use(cors({ origin: '*' }));
+app.use(cors({ origin: 'https://wepservicesonline.vercel.app' }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const server = http.createServer(app); 

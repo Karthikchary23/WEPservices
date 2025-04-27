@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from 'axios'; // Ensure axios is imported
 import Link from "next/link";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline"; // Import Heroicons
 
 export default function ServiceProviderSignup() {
   const router = useRouter();
@@ -21,6 +22,7 @@ export default function ServiceProviderSignup() {
   const [verified, setVerified] = useState(false);
   const [signupError, setSignupError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // Add state for password visibility
 
   const onGetOtp = async (data) => {
     try {
@@ -190,18 +192,31 @@ export default function ServiceProviderSignup() {
 
           <div className="space-y-2">
             <label className="block text-gray-700 font-medium text-sm">Password</label>
-            <input
-              type="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="Enter password"
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter password"
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500"
+              >
+                {passwordVisible ? (
+                  <EyeOffIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && (
               <p className="text-red-500 text-xs">{errors.password.message}</p>
             )}
@@ -212,7 +227,7 @@ export default function ServiceProviderSignup() {
               type="button"
               onClick={handleSubmit(onGetOtp)}
               disabled={isLoading}
-              className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all disabled:opacity-50"
+              className="w-full cursor-pointer bg-green-600 hover:bg-green-700 text-white font-semibold py-3 rounded-lg transition-all disabled:opacity-50"
             >
               {isLoading ? "Sending..." : "Get OTP"}
             </button>
@@ -240,7 +255,7 @@ export default function ServiceProviderSignup() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all disabled:opacity-50"
+                className="w-full cursor-pointer bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition-all disabled:opacity-50"
               >
                 {isLoading ? "Signing Up..." : "Sign Up"}
               </button>

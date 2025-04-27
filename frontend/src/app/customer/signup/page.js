@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline"; // Import Heroicons
 
 export default function CustomerSignup() {
   const router = useRouter();
@@ -19,6 +20,7 @@ export default function CustomerSignup() {
   const [otp, setOtp] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // Add state for password visibility
 
   const onGetOtp = async (data) => {
     setIsLoading(true);
@@ -214,19 +216,32 @@ export default function CustomerSignup() {
 
           <div className="space-y-2">
             <label className="block text-sm font-medium text-gray-700">Password</label>
-            <input
-              type="password"
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters",
-                },
-              })}
-              className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
-              placeholder="Create a password"
-              disabled={otpVerified}
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                {...register("password", {
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters",
+                  },
+                })}
+                className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-all duration-300"
+                placeholder="Create a password"
+                disabled={otpVerified}
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
+              >
+                {passwordVisible ? (
+                  <EyeOffIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && <p className="text-rose-500 text-xs">{errors.password.message}</p>}
           </div>
 
@@ -235,7 +250,7 @@ export default function CustomerSignup() {
               type="button"
               onClick={handleSubmit(onGetOtp)}
               disabled={isLoading}
-              className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50"
+              className="w-full cursor-pointer bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50"
             >
               {isLoading ? "Sending..." : "Get OTP"}
             </button>
@@ -263,7 +278,7 @@ export default function CustomerSignup() {
                 type="button"
                 onClick={handleSubmit(onVerifyOtp)}
                 disabled={isLoading}
-                className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50"
+                className="w-full bg-gradient-to-r from-purple-500 to-purple-600 hover:from-purple-600 hover:to-purple-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 cursor-pointer"
               >
                 {isLoading ? "Verifying..." : "Verify OTP"}
               </button>

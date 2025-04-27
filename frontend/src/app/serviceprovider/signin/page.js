@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline"; // Import Heroicons
 
 export default function SignIn() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function SignIn() {
   const [otpVerified, setOtpVerified] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false); // Add state for password visibility
 
   const onGetOtp = async (data) => {
     setIsLoading(true);
@@ -134,18 +136,31 @@ export default function SignIn() {
 
           <div>
             <label className="block text-gray-700 font-medium">Password</label>
-            <input
-              type="password"
-              {...register("password", { 
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters"
-                }
-              })}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled={otpVerified}
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                {...register("password", { 
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters"
+                  }
+                })}
+                className="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={otpVerified}
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute cursor-pointer inset-y-0 right-3 flex items-center text-gray-500"
+              >
+                {passwordVisible ? (
+                  <EyeOffIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
           </div>
 
@@ -154,7 +169,7 @@ export default function SignIn() {
               type="button"
               onClick={handleSubmit(onGetOtp)}
               disabled={isLoading}
-              className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition disabled:bg-green-300"
+              className="w-full cursor-pointer bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition disabled:bg-green-300"
             >
               {isLoading ? "Sending..." : "Get OTP"}
             </button>
@@ -179,7 +194,7 @@ export default function SignIn() {
                 type="button"
                 onClick={handleSubmit(onVerifyOtp)}
                 disabled={isLoading}
-                className="w-full bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 mt-2 rounded-lg transition disabled:bg-purple-300"
+                className="w-full cursor-pointer bg-purple-500 hover:bg-purple-600 text-white font-semibold py-2 mt-2 rounded-lg transition disabled:bg-purple-300"
               >
                 {isLoading ? "Verifying..." : "Verify OTP"}
               </button>
@@ -189,7 +204,7 @@ export default function SignIn() {
           <button
             type="submit"
             disabled={!otpVerified || isLoading}
-            className={`w-full py-2 rounded-lg font-semibold transition ${
+            className={`w-full py-2 rounded-lg cursor-pointer font-semibold transition ${
               otpVerified 
                 ? "bg-blue-500 hover:bg-blue-600 text-white" 
                 : "bg-gray-400 cursor-not-allowed"

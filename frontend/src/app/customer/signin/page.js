@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import axios from "axios";
 import Cookies from "js-cookie";
+import { EyeIcon, EyeOffIcon } from "@heroicons/react/outline"; // Import Heroicons
 
 export default function SignIn() {
   const router = useRouter();
@@ -20,6 +21,7 @@ export default function SignIn() {
   const [otpVerified, setOtpVerified] = useState(false);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [passwordVisible, setPasswordVisible] = useState(false);
 
   const onGetOtp = async (data) => {
     setIsLoading(true);
@@ -137,18 +139,31 @@ export default function SignIn() {
 
           <div>
             <label className="block text-gray-700 font-medium">Password</label>
-            <input
-              type="password"
-              {...register("password", { 
-                required: "Password is required",
-                minLength: {
-                  value: 6,
-                  message: "Password must be at least 6 characters"
-                }
-              })}
-              className="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-              disabled={otpVerified}
-            />
+            <div className="relative">
+              <input
+                type={passwordVisible ? "text" : "password"}
+                {...register("password", { 
+                  required: "Password is required",
+                  minLength: {
+                    value: 6,
+                    message: "Password must be at least 6 characters"
+                  }
+                })}
+                className="w-full px-4 py-2 mt-1 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                disabled={otpVerified}
+              />
+              <button
+                type="button"
+                onClick={() => setPasswordVisible(!passwordVisible)}
+                className="absolute inset-y-0 right-3 flex items-center text-gray-500 cursor-pointer"
+              >
+                {passwordVisible ? (
+                  <EyeOffIcon className="h-5 w-5" />
+                ) : (
+                  <EyeIcon className="h-5 w-5" />
+                )}
+              </button>
+            </div>
             {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
           </div>
 
@@ -165,7 +180,7 @@ export default function SignIn() {
 
           {otpSent && !otpVerified && (
             <div>
-              <label className="block text-gray-700 font-medium">Enter OTP</label>
+              <label className="block text-gray-700 font-medium cursor-pointer">Enter OTP</label>
               <input
                 type="text"
                 {...register("otp", { 
