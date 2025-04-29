@@ -67,7 +67,7 @@ export default function SignIn() {
     setError(null);
     try {
       if(data.otp !== otpSent) {
-        throw new Error("Invalid OTP. Please try again.");
+        alert("Invalid OTP. Please try again.");
 
     }
 
