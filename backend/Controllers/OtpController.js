@@ -11,8 +11,11 @@ function generateOtp() {
 // Function to send OTP via email
 async function sendOtpEmail(email, otp) {
     console.log(email);
+    console.log(process.env.EMAIL_USER)
+    console.log(process.env.EMAIL_PASS)
     let transporter = nodemailer.createTransport({
         service: 'gmail',
+        
         auth: {
             user: process.env.EMAIL_USER, // Ensure environment variables are set
             pass: process.env.EMAIL_PASS
