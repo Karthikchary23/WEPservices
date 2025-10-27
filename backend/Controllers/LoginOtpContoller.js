@@ -8,7 +8,7 @@ function generateOtp() {
 
 // Function to send OTP via email
 async function sendOtpEmail(email, otp) {
-    //console.log(email);
+    console.log(email);
     let transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
@@ -50,11 +50,11 @@ async function ServiceprovideSignInOtpRequest(req, res) {
             return res.status(400).json({ message: ' email Id not found, please Sign up first ' });
         }
 
-        //console.log("User  exist, sending OTP...");
+        console.log("User  exist, sending OTP...");
 
         // Generate OTP
         const otp = generateOtp();
-        //console.log("Generated OTP:", otp);
+        console.log("Generated OTP:", otp);
 
         // Send OTP via email
         try {
